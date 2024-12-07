@@ -1,11 +1,13 @@
+import { useEffect } from 'react'
 import { Link, routes } from '@redwoodjs/router'
 import { useAuth } from 'src/auth'
 import SignoutBtn from 'src/components/SignoutBtn/SignoutBtn'
 
 const Navigation = () => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, currentUser } = useAuth()
+
   return (
-    <nav>
+    <nav style={{ display: 'flex', flexDirection: 'row', gap: '1rem', alignItems: 'center' }}>
       {isAuthenticated ? (
         <SignoutBtn />
       ) : (
@@ -14,6 +16,8 @@ const Navigation = () => {
           <Link to={routes.signin()}>Sign In</Link>
         </>
       )}
+      <p>isAuthenticated: {JSON.stringify(isAuthenticated)}</p>
+      <p>Current User: {JSON.stringify(currentUser)}</p>
     </nav>
   )
 }
